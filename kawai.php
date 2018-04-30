@@ -25,9 +25,6 @@ if(strtolower(substr(PHP_OS, 0, 3)) == 'win') {
     $ua = "Mozilla/5.0 (Linux; Android 5.1.1; Andromax A16C3H Build/LMY47V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.111 Mobile Safari/537.36";
     system("clear");
 }
-$port=$proxy['data'][0]['port'];
-$ip=$proxy['data'][0]['ip'];
-
 echo $G."
  ._________________.
  | _______________ |
@@ -52,6 +49,8 @@ echo $R."\n++++++++++++++++++++++++++++++++++++++".$G."\n\n";
 if(isset($argv[1]) AND isset($argv[2]) AND isset($argv[3]) AND isset($argv[4])) {
 	for($x=0;$x<$argv[4];$x++) {
 	$proxy=json_decode(file_get_contents("http://pubproxy.com/api/proxy"),1);
+$port=$proxy['data'][0]['port'];
+$ip=$proxy['data'][0]['ip'];
 	echo "Connecting To\t=> ".$proxy['data'][0]['ip'].':'.$proxy['data'][0]['port']."\n";
 	echo "Attacking\t=> ".$argv[1]."\n";
 	$ch=curl_init($argv[1]);
