@@ -25,7 +25,9 @@ if(strtolower(substr(PHP_OS, 0, 3)) == 'win') {
     $ua = "Mozilla/5.0 (Linux; Android 5.1.1; Andromax A16C3H Build/LMY47V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.111 Mobile Safari/537.36";
     system("clear");
 }
-	
+$port=$proxy['data'][0]['port'];
+$ip=$proxy['data'][0]['ip'];
+
 echo $G."
  ._________________.
  | _______________ |
@@ -55,9 +57,12 @@ if(isset($argv[1]) AND isset($argv[2]) AND isset($argv[3]) AND isset($argv[4])) 
 	$ch=curl_init($argv[1]);
 	//curl_setopt($ch, CURLOPT_PORT, $port);
 	curl_setopt($ch, CURLOPT_USERAGENT, $ua);
-	curl_setopt($ch, CURLOPT_PROXY, $proxy['data'][0]['ip'].':'.$proxy['data'][0]['port']);
+	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+	curl_setopt($ch, CURLOPT_PROXY, $port);
+   curl_setopt($ch, CURLOPT_PROXYPORT, $ip);
+	curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
+   //curl_setopt($ch, CURLOPT_PROXYPORT, 8888);
 	//curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth); 
-	curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 	curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -68,6 +73,9 @@ if(isset($argv[1]) AND isset($argv[2]) AND isset($argv[3]) AND isset($argv[4])) 
 	curl_close($ch);
 	//echo $isi."\n";
 	//echo $info."\n";
+	if(!($info == "0" AND $info == "500")) {
+		echo "Status \t\t=> Online\n";
+	}
 }
 } else {
 	echo $Y.$argv[0]." [host] [timeout connection] [timeout] [times]\n";
